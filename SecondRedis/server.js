@@ -18,10 +18,9 @@ app.get('/:id', async (req, res) => {
     const data = await fetchResult.json();
     console.log(data, 'here');
     await client.set(`todo${id}`, JSON.stringify(data));
-
     return res.status(200).send({ message: 'Normal Fetched', data });
   } catch (er) {
-    return res.status(200).send({});
+    return res.status(200).send({ message: er.message });
   }
 });
 app.get('/', (req, res) => {
