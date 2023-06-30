@@ -1,5 +1,6 @@
 require('dotenv').config();
 const express = require('express');
+const axios = require('axios');
 const app = express();
 const PORT = process.env.PORT || 8080;
 const JsonUrl = 'https://jsonplaceholder.typicode.com/todos/';
@@ -14,11 +15,13 @@ app.get('/:id', async (req, res) => {
         .status(200)
         .send({ message: 'Redis', GetTodo: JSON.parse(GetTodo) });
     }
-    const fetchResult = await fetch(JsonUrl + id);
-    const data = await fetchResult.json();
-    console.log(data, 'here');
-    await client.set(`todo${id}`, JSON.stringify(data));
-    return res.status(200).send({ message: 'Normal Fetched', data });
+    const fetchResult = await axios.get(JsonUrl + id);
+
+    console.log(fetchResult.data, 'here');
+    await client.set(`todo${id}`, JSON.stringify(fetchResult.data));
+    return res
+      .status(200)
+      .send({ message: 'Normal Fetched', data: fetchResult.data });
   } catch (er) {
     return res.status(200).send({ message: er.message });
   }
