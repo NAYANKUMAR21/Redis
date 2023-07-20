@@ -4,14 +4,77 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
+    <style>
+      body {
+        text-align: center;
+        padding: 0px;
+        margin: 0px;
+        text-transform: uppercase;
+        color: white;
+        background-color: rgb(225, 225, 205);
+      }
+      #masthead {
+        height: 10vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: #16a085;
+      }
+      #navbar {
+        height: 5vh;
+        margin-top: 10px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: #4660d7;
+      }
+      #body-Content {
+        padding: 10px;
+
+        height: 200vh;
+        display: flex;
+        justify-content: space-between;
+        margin-top: 10px;
+        background-color: #bd5397;
+      }
+
+      #side-bar {
+        height: 80vh;
+        width: 23%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: #da2664;
+      }
+      #main-column {
+        width: 50%;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: #605659;
+      }
+      #footer {
+        margin-top: 10px;
+        height: 30vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: #2ac7c5;
+      }
+      .right {
+        border: 2px solid black;
+      }
+    </style>
   </head>
   <body>
-    <dl>
-      <dt>Question 1?</dt>
-      <dd>Answer 1.</dd>
-
-      <dt>Question 2?</dt>
-      <dd>Answer 2.</dd>
-    </dl>
+    <div id="masthead">masted</div>
+    <div id="navbar">navbar</div>
+    <div id="body-Content">
+      <div id="side-bar">Left Side bar</div>
+      <div id="main-column">Main Content</div>
+      <div id="side-bar" class="right">Right Side bar</div>
+    </div>
+    <div id="footer">footer</div>
   </body>
 </html>
