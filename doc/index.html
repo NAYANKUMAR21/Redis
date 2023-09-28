@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>Home | Web Page Structure</title>
     <style>
       body {
         text-align: center;
@@ -13,16 +13,23 @@
         color: white;
         background-color: rgb(225, 225, 205);
       }
+      body > div {
+        border-radius: 7px;
+      }
+      body > div > div {
+        border-radius: 5px;
+      }
       #masthead {
         height: 10vh;
         display: flex;
         justify-content: center;
         align-items: center;
         background-color: #16a085;
+        margin-bottom: 10px;
       }
       #navbar {
-        height: 5vh;
-        margin-top: 10px;
+        height: 7vh;
+
         display: flex;
         justify-content: center;
         align-items: center;
@@ -65,6 +72,13 @@
       .right {
         border: 2px solid black;
       }
+      .sticky {
+        position: fixed;
+        top: 0;
+        padding: 0px;
+        /* margin-top: 0px; */
+        width: 100%;
+      }
     </style>
   </head>
   <body>
@@ -77,4 +91,20 @@
     </div>
     <div id="footer">footer</div>
   </body>
+  <script>
+    window.onscroll = function () {
+      myFunction();
+    };
+
+    var navbar = document.getElementById('navbar');
+    var sticky = navbar.offsetTop;
+
+    function myFunction() {
+      if (window.pageYOffset >= sticky) {
+        navbar.classList.add('sticky');
+      } else {
+        navbar.classList.remove('sticky');
+      }
+    }
+  </script>
 </html>

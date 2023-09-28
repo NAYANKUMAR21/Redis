@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      #Container {
+        border: 1px solid black;
+        width: 80%;
+        margin: auto;
+      }
+      table {
+        width: 100%;
+        border: 1px solid blue;
+      }
+      tr {
+        text-align: center;
+      }
+    </style>
+  </head>
+  <body>
+    <div>
+      nayan
+      <hr>
+      nayan
+    </div>
+    <h1>Todo's</h1>
+    <button id="button">get data</button>
+    <div>
+      <!--  -->
+      <form action="" id="form" onsubmit="addData(event)">
+        <input type="text" id="name" placeholder="Enter name" />
+        <input type="number" id="age" placeholder="Enter age" />
+        <input type="text" id="LastName" placeholder="Enter Last Name" />
+        <input type="Submit" />
+      </form>
+    </div>
+    <div id="Container">
+      <div id="content">
+        <table id="table">
+          <thead>
+            <tr>
+              <th>Sl.No</th>
+              <th>Name</th>
+              <th>Second Name</th>
+              <th>age</th>
+            </tr>
+          </thead>
+          <tbody id="tbody"></tbody>
+        </table>
+      </div>
+    </div>
+  </body>
+  <script>
+    const button = document.querySelector('#button');
+    let form = document.querySelector('#form');
+    button.addEventListener('click', fetchdata);
+    form.addEventListener('submit', addData);
+
+    form.addEventListener('input', function () {
+      let name = form.name.value;
+      let age = form.age.value;
+      let LastName = form.LastName.value;
+    });
+    console.log(form.name.value);
+    async function fetchdata() {
+      try {
+        const x = await fetch('http://localhost:8080/');
+        const data = await x.json();
+        console.log(data);
+        display(data);
+      } catch (er) {
+        return console.log(er.message, 'error from here');
+      }
+    }
+    function display(data) {
+      const table = document.querySelector('#tbody');
+      table.innerHTML = '';
+      console.log(table);
+      data.forEach((item, index) => {
+        // console.log(index, item);
+        // const tr = document.createElement('tr');
+        // const selNo = document.createElement('td');
+        // selNo.innerHTML = index + 1;
+        // const nametd = document.createElement('td');
+        // nametd.innerHTML = item.name;
+        // const agetd = document.createElement('td');
+        // agetd.innerHTML = item.age;
+        // const lastnameTd = document.createElement('td');
+        // lastnameTd.innerHTML = item.LastName;
+
+        // tr.append(selNo, name, lastnameTd, age);
+        // table.appendChild(tr);
+
+        let newRow = table.insertRow(index);
+        var cell1 = newRow.insertCell(0);
+        var cell2 = newRow.insertCell(1);
+        var cell3 = newRow.insertCell(2);
+        var cell4 = newRow.insertCell(3);
+
+        cell1.innerHTML = index + 1; // Replace with your content
+        cell2.innerHTML = item.name; // Replace with your content
+        cell3.innerHTML = item.LastName; // Replace with your content
+        cell4.innerHTML = item.age; // Replace with your content
+      });
+      return;
+    }
+    async function addData(e) {
+      e.preventDefault();
+      try {
+        if (form.name.value && form.age.value && form.LastName.value) {
+          const response = await fetch('http://localhost:8080/post-todo', {
+            method: 'POST',
+            mode: 'cors',
+            cache: 'no-cache',
+            credentials: 'same-origin',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            redirect: 'follow',
+            referrerPolicy: 'no-referrer',
+            body: JSON.stringify({
+              name: form.name.value,
+              LastName: form.LastName.value,
+              age: form.age.value,
+            }),
+          });
+          const data = await response.json();
+          console.log(21, 'here');
+          fetchdata();
+          return;
+        }
+        return console.log('Error some faults in value');
+      } catch (er) {
+        return console.log(er.message);
+      }
+    }
+  </script>
+</html>
